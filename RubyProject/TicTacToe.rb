@@ -1,33 +1,39 @@
-class TicTacToe
-  private
-  $player1 = Array.new(9, 0)
-  $player2 = Array.new(9, 0)
 
-
-
-
-end
 def PrintBoard(player1, player2)
 
-  positions = %w[zero one two three four five six seven eight]
+  positions = %w[zero one two three four five six seven eight nine]
   board = {}
+
 
   positions.each_with_index do |position, index|
     board[position] = player1[index] ? 'X' : (player2[index] ? '0' : index)
   end
 
-  puts " #{board['zero']} | #{board['one']} | #{board['two']} "
+  puts " #{board['one']} | #{board['two']} | #{board['three']} "
   puts '---|---|---'
-  puts " #{board['three']} | #{board['four']} | #{board['five']} "
+  puts " #{board['four']} | #{board['five']} | #{board['six']} "
   puts '---|---|---'
-  puts " #{board['six']} | #{board['seven']} | #{board['eight']} "
+  puts " #{board['seven']} | #{board['eight']} | #{board['nine']} "
 
 end
 
+def checkwin(player1, player2)
 
-player1 = Array.new(9, false )
-player2 = Array.new(9, false )
-turn = 0
+  wins = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
+
+  wins.each do |win|
+    if player1[win[0]] == 1 && player1[win[1]] == 1 && player1[win[2]] == 1
+      puts 'Player 1 wins!'
+      exit
+    elsif player2[win[0]] == 1 && player2[win[1]] == 1 && player2[win[2]] == 1
+      puts 'Player 2 wins!'
+      exit
+    end
+  end
+end
+
+
+
 
 puts 'Welcome to Tic Tac Toe!'
 puts 'Player 1, please enter your name: '
@@ -37,7 +43,7 @@ player2[0] = gets.chomp
 
 puts "Player 1 is #{player1[0]} and Player 2 is #{player2[0]}"
 
-while(true )
+while(true)
   PrintBoard(player1, player2)
   if turn % 2 == 0
     puts 'Player 2, please enter your move: '
@@ -48,6 +54,7 @@ while(true )
     move = gets.chomp
     player1[move.to_i] = 1
   end
+  checkwin(player1, player2)
   turn += 1
 end
 
